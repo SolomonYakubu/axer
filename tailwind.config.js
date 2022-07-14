@@ -6,10 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors:{
-        'primary':"#696969",
-        'secondary':'#000'
-      }
+      colors: {
+        primary: "rgb(107 36 168)",
+        secondary: "#000",
+      },
     },
     // colors: {
     //   // 'blue': '#1fb6ff',
@@ -20,8 +20,8 @@ module.exports = {
     //   // 'gray': '#8492a6',
     //   // 'gray-light': '#d3dce6'
     //   // 'primary':'#008bff'
-      
+
     // },
   },
   plugins: [],
-}
+};
