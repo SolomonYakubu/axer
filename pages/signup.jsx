@@ -7,8 +7,9 @@ import { userAgent } from "next/server";
 export default function signup() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const passwordAlert = useRef(null);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const confirmAlert = useRef(null);
-  const submit = (e) => {
+  function submit(e) {
     e.preventDefault();
     if (!e.target.password.value.match("(.{6,})")) {
       return (passwordAlert.current.innerText =
@@ -33,7 +34,7 @@ export default function signup() {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
-  };
+  }
   return (
     <>
       <Head>
