@@ -98,7 +98,7 @@ export default function signup() {
                 // minLength={6}
               />
               <div
-                className=" bg-red-200 text-red-600 font-light text-sm mt-1 p-1"
+                className=" bg-red-200 text-red-600 font-light text-sm mt-1"
                 ref={passwordAlert}
               ></div>
             </div>
@@ -118,7 +118,7 @@ export default function signup() {
                 required
               />
               <div
-                className=" bg-red-200 text-red-600 font-light text-sm mt-1 p-1"
+                className=" bg-red-200 text-red-600 font-light text-sm mt-1"
                 ref={confirmAlert}
               ></div>
             </div>
