@@ -86,7 +86,7 @@ That’s why the most recognized brands in the world love our platform.`,
         <div className="md:flex md:items-center md:justify-between md:w-full  p-3">
           <div className=" mt-10 md:w-6/12 ">
             <h3 className="font-extrabold text-4xl md:text-7xl text-blue-400">
-              Lincut
+              Axer
             </h3>
             <h3 className="font-extrabold text-4xl md:text-5xl text-white mb-4">
               Make it Short, Own Your Link
