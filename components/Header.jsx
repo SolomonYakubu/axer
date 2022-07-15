@@ -21,7 +21,7 @@ export default function Header() {
           {" "}
           {list.map(([name, link], index) => (
             <li
-              className="m-2 text-gray-50 font-bold hover:scale-105"
+              className="m-2 text-gray-50 font-bold hover:scale-105 cursor-pointer"
               key={index}
               onClick={() => router.push(link)}
             >

@@ -1,13 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../components/Header";
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
+import { AiOutlineLoading } from "react-icons/ai";
 import Head from "next/head";
-import { userAgent } from "next/server";
-export default function signup() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+export default function Signup() {
   const passwordAlert = useRef(null);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [loading, setLoading] = useState(false);
   const confirmAlert = useRef(null);
   function submit(e) {
     e.preventDefault();
@@ -22,6 +22,7 @@ export default function signup() {
         "Value must match entered password");
     }
     confirmAlert.current.innerText = "";
+    setLoading(true);
     fetch("/api/user", {
       method: "POST",
       headers: {
@@ -30,10 +31,14 @@ export default function signup() {
       body: JSON.stringify({
         name: e.target.name.value,
         email: e.target.email.value,
+        password: e.target.password.value,
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+      });
   }
   return (
     <>
@@ -43,7 +48,7 @@ export default function signup() {
         <meta name="theme-color" content="rgb(107, 36, 168)" />
       </Head>
       <Header />
-      <div className="md:mt-14 mt-6 flex items-center justify-center min-h-screen w-screen p-6 bg-slate-900">
+      <div className="md:mt-14 sm:mt-12 mt-6 flex items-center justify-center min-h-screen max-w-screen p-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">
             Sign Up
@@ -123,11 +128,18 @@ export default function signup() {
                 ref={confirmAlert}
               ></div>
             </div>
-            <input
-              type="submit"
-              className="bg-primary w-full p-2 text-white font-bold mt-3 rounded"
-              value={"Sign Up"}
-            />
+            <button
+              disabled={loading}
+              className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+            >
+              {loading && (
+                <AiOutlineLoading
+                  size={30}
+                  className="animate-spin mr-2 absolute left-10  "
+                />
+              )}{" "}
+              Sign Up
+            </button>
           </form>
           <p className="w-full my-2 text-slate-800 text-center flex items-center justify-between before:h-[1px] before:bg-black before:w-3/6 before:mr-1 after:h-[1px] after:bg-black after:w-3/6 after:ml-1">
             or
