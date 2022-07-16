@@ -14,12 +14,6 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  url: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Url",
-    },
-  ],
 });
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);

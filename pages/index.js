@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Header from "../components/Header.jsx";
+// import Header from "../components/Header.jsx";
 import lincut from "../img/lincut.svg";
 import { AiOutlineRise } from "react-icons/ai";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
@@ -10,7 +10,13 @@ import { BsController } from "react-icons/bs";
 import Accordion from "../components/Accordion";
 export default function Home() {
   const router = useRouter();
-  const list = ["Home", "About", "Login", "Sign Up"];
+  const list = [
+    ["Home", "/"],
+    ["About", "/"],
+
+    ["Login", "/login"],
+    ["Sign Up", "/signup"],
+  ];
   const faqs = [
     {
       title: "What is a URL Shortener?",
@@ -76,16 +82,14 @@ That’s why the most recognized brands in the world love our platform.`,
 
   return (
     <div className="overflow-hidden m-0 p-0 max-w-screen m-h-screen">
-      <Head>
-        <title>Lincut</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="theme-color" content="rgb(107, 36, 168)" />
-      </Head>
-      <Header />
-      <section className="px-6 py-14 md:mt-3 mb-0 w-full bg-slate-900  min-h-[93vh] ">
+      {/* <Header /> */}
+      <section
+        className="px-6 py-14 md:mt-3 mb-0 w-full bg-slate-900  min-h-[93vh] "
+        id="Home"
+      >
         <div className="md:flex md:items-center md:justify-between md:w-full  p-3">
           <div className=" mt-10 md:w-6/12 ">
-            <h3 className="font-extrabold text-4xl md:text-7xl text-blue-400">
+            <h3 className="font-extrabold text-4xl md:text-7xl text-blue-400 animate-pulse">
               Axer
             </h3>
             <h3 className="font-extrabold text-4xl md:text-5xl text-white mb-4">
@@ -111,7 +115,7 @@ That’s why the most recognized brands in the world love our platform.`,
           <Image className=" md:w-6/12 z-0" src={lincut} alt="illustration" />
         </div>
       </section>
-      <section className="p-6  w-full bg-white">
+      <section className="p-6  w-full bg-white" id="About">
         <h3 className=" text-center text-2xl text-gray-600 font-extrabold">
           The link shortener that has your brand’s back
         </h3>
@@ -143,6 +147,7 @@ That’s why the most recognized brands in the world love our platform.`,
         <button
           onClick={() => router.push("/signup")}
           className=" bg-primary text-white p-3 font-bold rounded-sm mr-1 border-none"
+          id="FAQs"
         >
           Start for free
         </button>
@@ -157,14 +162,20 @@ That’s why the most recognized brands in the world love our platform.`,
         <h3 className=" text-center text-2xl text-white font-extrabold mb-3">
           Quick Links
         </h3>
-        {list.map((item, index) => (
-          <div className="text-white  text-lg" key={index}>
+        {list.map(([item, link], index) => (
+          <div
+            onClick={() => router.push(link)}
+            className="text-white font-thin text-lg"
+            key={index}
+          >
             {item}
           </div>
         ))}
         <div className="my-3 text-center">
           <p className="font-thin text-white text-sm">Privacy Policy</p>
-          <p className="font-light text-white">© 2022, Designed by Kingsolo</p>
+          <p className="font-thin text-sm text-white">
+            Copyright © 2021 Solomon. All Rights Reserved.
+          </p>
         </div>
       </section>
     </div>

@@ -17,6 +17,7 @@ const urlSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  user: String,
 });
 
 const Url = models.Url || model("Url", urlSchema);

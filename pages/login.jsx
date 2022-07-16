@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import { signIn, signOut } from "next-auth/react";
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
+import { AiOutlineLoading } from "react-icons/ai";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
 export default function Login() {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const status = await signIn("credentials", {
       redirect: false,
       email: e.target.email.value,
@@ -16,6 +21,7 @@ export default function Login() {
     });
     console.log(status);
     if (status.ok) {
+      setLoading(false);
       router.push("/dashboard");
     }
   };
@@ -29,15 +35,10 @@ export default function Login() {
   };
   return (
     <>
-      <Head>
-        <title>Lincut</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="theme-color" content="rgb(107, 36, 168)" />
-      </Head>
-      <Header />
+      {/* <Header /> */}
       <div className="md:mt-14 mt-6 flex items-center justify-center  min-h-screen w-screen p-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} disabled={loading}>
             <h3 className="text-center font-bold text-xl text-slate-500">
               Login
             </h3>
@@ -73,7 +74,16 @@ export default function Login() {
               />
             </div>
 
-            <button className="bg-primary w-full p-2 text-white font-bold mt-3 rounded">
+            <button
+              disabled={loading}
+              className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+            >
+              {loading && (
+                <AiOutlineLoading
+                  size={30}
+                  className="animate-spin mr-2 absolute left-10  "
+                />
+              )}{" "}
               Login
             </button>
           </form>

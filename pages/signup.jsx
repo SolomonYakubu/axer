@@ -4,6 +4,7 @@ import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
 import Head from "next/head";
+import Router from "next/router";
 
 export default function Signup() {
   const passwordAlert = useRef(null);
@@ -36,18 +37,18 @@ export default function Signup() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data === "Registered") {
+          Router.push("/login");
+        }
         setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   }
   return (
     <>
-      <Head>
-        <title>Axer</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="theme-color" content="rgb(107, 36, 168)" />
-      </Head>
-      <Header />
+      {/* <Header /> */}
       <div className="md:mt-14 sm:mt-12 mt-6 flex items-center justify-center min-h-screen max-w-screen p-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">

@@ -5,6 +5,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import User from "../../../models/user";
 import connectMongo from "../../../utils/connectMongo";
 import { compare } from "bcrypt";
+import { redirect } from "next/dist/server/api-utils";
 
 export default NextAuth({
   //Configure JWT
@@ -78,21 +79,29 @@ export default NextAuth({
 
   //   },
   events: {
+    signOut: async (message) => {
+      redirect: async () => Promise.resolve("/login");
+    },
     signIn: async (message) => {
       //   const session = await getSession();
-
-      console.log(message);
-      try {
-        await connectMongo();
-        if (await User.findOne({ email: message.user.email })) {
-          return;
+      if (
+        message.account.provider === "facebook" ||
+        message.account.provider === "google"
+      ) {
+        console.log(message.account.provider);
+        console.log(message);
+        try {
+          await connectMongo();
+          if (await User.findOne({ email: message.user.email })) {
+            return;
+          }
+          await new User({
+            name: message.user.name,
+            email: message.user.email,
+          }).save();
+        } catch (error) {
+          console.log(error.message);
         }
-        await new User({
-          name: message.user.name,
-          email: message.user.email,
-        }).save();
-      } catch (error) {
-        console.log(error.message);
       }
     },
   },
