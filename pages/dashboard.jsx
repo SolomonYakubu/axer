@@ -5,27 +5,27 @@ import { useEffect, useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
 
-export default function Component() {
+export default function Component({ data }) {
   const { data: session } = useSession();
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const router = useRouter();
   console.log(session);
-  useEffect(() => {
-    fetch("/api/user/solo@gmail.com", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/user/solo@gmail.com", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // }, []);
   function submit(e) {
     e.preventDefault();
 
@@ -127,4 +127,17 @@ export default function Component() {
   //     <button onClick={() => signIn()}>Sign in</button>
   //   </>
   // );
+}
+export async function getServerSideProps({ req }) {
+  // Fetch data from external API
+  const url =
+    (process.env.NODE_ENV == "production" &&
+      "https://axer.vercel.app/api/url") ||
+    `http://${req.headers.host}/api/url`;
+  console.log(url);
+  const res = await fetch(url);
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data } };
 }
