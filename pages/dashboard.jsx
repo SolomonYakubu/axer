@@ -111,7 +111,9 @@ export default function Component({ data }) {
                 <button
                   onClick={() =>
                     navigator.clipboard.writeText(
-                      `${window.location.hostname}/${item.shortUrl}`
+                      (process.env.NODE_ENV === "production" &&
+                        `axer.ga/${item.shortUrl}`) ||
+                        `${window.location.hostname}/${item.shortUrl}`
                     )
                   }
                   className="flex self-end bg-primary p-2 text-white rounded m-1"
