@@ -49,7 +49,7 @@ export default function Signup() {
   return (
     <>
       {/* <Header /> */}
-      <div className="md:mt-14 sm:mt-12 mt-6 flex items-center justify-center min-h-screen max-w-screen p-6 bg-slate-900">
+      <div className="md:mt-14  flex items-center justify-center min-h-screen  py-24 p-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">
             Sign Up

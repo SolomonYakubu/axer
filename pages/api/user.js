@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import connectMongo from "../../utils/connectMongo";
 import User from "../../models/user";
+import Url from "../../models/url";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -20,5 +21,11 @@ export default async function handler(req, res) {
 
       break;
     case "GET":
+      try {
+        await connectMongo();
+        const { user } = req.body;
+        const url = await Url.find(user);
+        res.json(url);
+      } catch (err) {}
   }
 }

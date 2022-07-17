@@ -36,7 +36,7 @@ export default function Login() {
   return (
     <>
       {/* <Header /> */}
-      <div className="md:mt-14 mt-6 flex items-center justify-center  min-h-screen w-screen p-6 bg-slate-900">
+      <div className="md:mt-14 py-8 flex items-center justify-center  min-h-screen p-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <form onSubmit={onSubmit} disabled={loading}>
             <h3 className="text-center font-bold text-xl text-slate-500">
