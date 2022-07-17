@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
-
+import { getSession } from "next-auth/react";
 export default function Component({ data }) {
   const { data: session } = useSession();
   // const [data, setData] = useState([]);
@@ -128,13 +128,14 @@ export default function Component({ data }) {
   //   </>
   // );
 }
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps(context) {
   // Fetch data from external API
+  const session = await getSession(context);
+  console.log(session);
   const url =
     (process.env.NODE_ENV == "production" &&
-      "https://axer.vercel.app/api/url") ||
-    `http://${req.headers.host}/api/url`;
-  console.log(url);
+      `https://axer.vercel.app/api/user/${session.user.email}`) ||
+    `http://${context.req.headers.host}/api/user/${session.user.email}`;
   const res = await fetch(url);
   const data = await res.json();
 
