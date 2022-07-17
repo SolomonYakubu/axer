@@ -97,11 +97,15 @@ export default function Component({ data }) {
                   </a>
                 </div>
                 <div className="font-light text-gray-600 text-md self-start">
-                  Shortened Link:
+                  Shortened Link:{" "}
                   <a
                     className="text-sm font-light text-blue-800"
                     href={item.shortUrl}
-                  >{`${window.location.hostname}/${item.shortUrl}`}</a>
+                  >
+                    {(process.env.NODE_ENV === "production" &&
+                      `axer.ga/${item.shortUrl}`) ||
+                      `${window.location.hostname}/${item.shortUrl}`}
+                  </a>
                 </div>
 
                 <button
