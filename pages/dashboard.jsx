@@ -39,7 +39,7 @@ export default function Component({ initData }) {
     return (
       <>
         {/* <Header /> */}
-        <div className="md:min-h-screen pb-2   mt-14 bg-slate-700">
+        <div className="md:min-h-[92vh] pb-2   mt-[8vh] bg-slate-700">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
