@@ -52,7 +52,7 @@ export default function Component({ data }) {
     return (
       <>
         {/* <Header /> */}
-        <div className="md:min-h-screen pb-2     mt-14 bg-gray-600">
+        <div className="md:min-h-screen pb-2   mt-14 bg-gray-600">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
@@ -80,7 +80,7 @@ export default function Component({ data }) {
               </button>
             </form>
           </div>
-          <div className=" flex flex-col p-6  justify-center items-center md:justify-center  md:flex-row md:flex-wrap min-h-screen">
+          <div className=" flex flex-col p-6 justify-center items-center md:justify-center  md:flex-row md:flex-wrap min-h-screen">
             {data?.map((item, index) => (
               <div
                 key={index}
@@ -137,14 +137,21 @@ export default function Component({ data }) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const session = await getSession(context);
-  console.log(session);
-  const url =
-    (process.env.NODE_ENV == "production" &&
-      `https://axer.vercel.app/api/user/${session.user.email}`) ||
-    `http://${context.req.headers.host}/api/user/${session.user.email}`;
-  const res = await fetch(url);
-  const data = await res.json();
-
+  let data;
+  if (session) {
+    const url =
+      (process.env.NODE_ENV == "production" &&
+        `https://axer.vercel.app/api/user/${session.user.email}`) ||
+      `http://${context.req.headers.host}/api/user/${session.user.email}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return { props: { data } };
+  }
   // Pass data to the page via props
-  return { props: { data } };
+  return {
+    redirect: {
+      destination: session && "/login",
+      permanent: false,
+    },
+  };
 }
