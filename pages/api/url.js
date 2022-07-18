@@ -31,6 +31,7 @@ export default async function handler(req, res) {
         res.status(201).json({
           fullUrl,
           shortUrl: `${host}/${formatedPhrase}`,
+          clicks: 0,
         });
       } catch (error) {
         res.json(error.message);

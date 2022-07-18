@@ -39,7 +39,7 @@ export default function Component({ initData }) {
     return (
       <>
         {/* <Header /> */}
-        <div className="md:min-h-screen pb-2   mt-14 bg-gray-600">
+        <div className="md:min-h-screen pb-2   mt-14 bg-slate-700">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
@@ -71,33 +71,39 @@ export default function Component({ initData }) {
             {data?.map((item, index) => (
               <div
                 key={index}
-                className="p-4  flex flex-col justify-center items-center  shadow-sm rounded m-3 h-60 w-full md:w-1/4 break-all bg-white"
+                className="p-4  flex flex-col justify-center items-center  shadow-lg rounded m-3 h-72 w-full md:w-1/4 break-all bg-slate-800 "
               >
-                <FiLink size={50} className="text-center text-green-300" />
-                <div className="font-light text-gray-600 text-md self-start">
+                <FiLink size={40} className="text-center text-white" />
+                <div className=" text-white text-md self-start">
                   Full Link:{" "}
                   <a
-                    className="text-sm font-light text-blue-800"
-                    href={item.fullUrl}
+                    className="text-sm font-light text-blue-400"
+                    href={`//${item.fullUrl}`}
                   >
                     {item.fullUrl}
                   </a>
                 </div>
-                <div className="font-light text-gray-600 text-md self-start">
+                <div className=" text-white text-md self-start">
                   Shortened Link:{" "}
                   <a
-                    className="text-sm font-light text-blue-800"
-                    href={item.shortUrl.split("/").slice(-1)}
+                    className="text-sm font-light text-blue-400"
+                    href={`//${item.shortUrl}`}
                   >
                     {item.shortUrl}
                   </a>
                 </div>
-
+                <div className="font-bold self-end flex items-center text-lg text-white">
+                  Clicks:{" "}
+                  <span className="text-3xl ml-1 text text-white">
+                    {item.clicks}
+                  </span>
+                </div>
                 <button
                   onClick={() => navigator.clipboard.writeText(item.shortUrl)}
-                  className="flex self-end bg-primary p-2 text-white rounded m-1"
+                  className="flex self-end font-thin bg-white p-2 text-stone-800 rounded m-1"
                 >
-                  Copy <FaRegCopy className="m-1" />
+                  Copy Link
+                  <FaRegCopy className="m-1" />
                 </button>
               </div>
             ))}

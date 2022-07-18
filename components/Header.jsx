@@ -30,7 +30,7 @@ export default function Header() {
   }, [router]);
   return (
     <div className="fixed top-0 z-20">
-      <div className=" p-4 md:px-16 md:py-8 flex w-screen items-center justify-between bg-primary h-14  drop-shadow-b-md">
+      <div className=" p-4 md:px-16 md:py-8 flex w-screen items-center justify-between bg-primary h-[8vh]  drop-shadow-b-md">
         <GiWoodAxe className="ml-3 text-white" size={50} />
 
         {(session && (

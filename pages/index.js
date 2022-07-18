@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 // import Header from "../components/Header.jsx";
-import lincut from "../img/lincut.svg";
+import lincut from "../public/axer.svg";
 import { AiOutlineRise } from "react-icons/ai";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { BsController } from "react-icons/bs";
