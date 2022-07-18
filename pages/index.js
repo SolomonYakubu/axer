@@ -139,7 +139,10 @@ That’s why the most recognized brands in the world love our platform.`,
         </div>
       </section>
 
-      <section className="w-full bg-slate-900 h-60 flex flex-col items-center justify-center">
+      <section
+        className="w-full bg-slate-900 h-60 flex flex-col items-center justify-center"
+        id="FAQs"
+      >
         <h3 className=" text-center text-4xl text-white font-extrabold mb-7">
           More than a free link shortener
         </h3>
@@ -153,7 +156,10 @@ That’s why the most recognized brands in the world love our platform.`,
         </button>
       </section>
       <section className="p-6 w-full mb-6">
-        <h3 className=" text-center text-3xl text-gray-700 font-extrabold mb-7">
+        <h3
+          className=" text-center text-3xl text-gray-700 font-extrabold mb-7"
+          id="FAQs"
+        >
           Frequently Asked Questions
         </h3>
         {faqComponents}

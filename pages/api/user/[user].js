@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         return res.status(200).json(
           url.map((item) => ({
             fullUrl: item.fullUrl,
-            shortUrl: `${item.shortUrl}`,
+            shortUrl: `${host}/${item.shortUrl}`,
             clicks: item.clicks,
           }))
         );

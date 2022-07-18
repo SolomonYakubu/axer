@@ -5,27 +5,14 @@ import { useEffect, useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
 import { getSession } from "next-auth/react";
-export default function Component({ data }) {
+export default function Component({ initData }) {
   const { data: session } = useSession();
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState(initData);
   const router = useRouter();
-  console.log(session);
+  console.log(data);
   // useEffect(() => {
-  //   fetch("/api/user/solo@gmail.com", {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setData(data);
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // }, []);
+  //   setData(initData);
+  // }, [initData]);
   function submit(e) {
     e.preventDefault();
 
@@ -41,8 +28,8 @@ export default function Component({ data }) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then((resData) => {
+        setData([...data, resData]);
       })
       .catch((err) => {
         console.log(err.message);
@@ -80,7 +67,7 @@ export default function Component({ data }) {
               </button>
             </form>
           </div>
-          <div className=" flex flex-col p-6 justify-center items-center md:justify-center  md:flex-row md:flex-wrap min-h-screen">
+          <div className=" flex flex-col-reverse p-6 justify-center items-center md:justify-center  md:flex-row-reverse md:flex-wrap-reverse min-h-screen">
             {data?.map((item, index) => (
               <div
                 key={index}
@@ -100,22 +87,14 @@ export default function Component({ data }) {
                   Shortened Link:{" "}
                   <a
                     className="text-sm font-light text-blue-800"
-                    href={item.shortUrl}
+                    href={item.shortUrl.split("/").slice(-1)}
                   >
-                    {(process.env.NODE_ENV === "production" &&
-                      `axer.ga/${item.shortUrl}`) ||
-                      `${window.location.hostname}/${item.shortUrl}`}
+                    {item.shortUrl}
                   </a>
                 </div>
 
                 <button
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      (process.env.NODE_ENV === "production" &&
-                        `axer.ga/${item.shortUrl}`) ||
-                        `${window.location.hostname}/${item.shortUrl}`
-                    )
-                  }
+                  onClick={() => navigator.clipboard.writeText(item.shortUrl)}
                   className="flex self-end bg-primary p-2 text-white rounded m-1"
                 >
                   Copy <FaRegCopy className="m-1" />
@@ -144,13 +123,13 @@ export async function getServerSideProps(context) {
         `https://axer.vercel.app/api/user/${session.user.email}`) ||
       `http://${context.req.headers.host}/api/user/${session.user.email}`;
     const res = await fetch(url);
-    const data = await res.json();
-    return { props: { data } };
+    const initData = await res.json();
+    return { props: { initData } };
   }
   // Pass data to the page via props
   return {
     redirect: {
-      destination: session && "/login",
+      destination: "/login",
       permanent: false,
     },
   };
