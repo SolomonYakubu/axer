@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
-import Header from "../components/Header";
+
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
-import Head from "next/head";
+import { signIn } from "next-auth/react";
+
 import Router from "next/router";
+import Link from "next/link";
 
 export default function Signup() {
   const passwordAlert = useRef(null);
@@ -57,7 +59,7 @@ export default function Signup() {
   return (
     <>
       {/* <Header /> */}
-      <div className=" mt-[8vh] min-h-[92vh]  flex items-center justify-center py-4  px-6 bg-slate-900">
+      <div className=" mt-[8vh] min-h-[92vh]  flex items-center justify-center py-4 md:py-16 px-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">
             Sign Up
@@ -150,6 +152,12 @@ export default function Signup() {
               Sign Up
             </button>
           </form>
+          <div className="text-sm font-lignt my-3 cursor-pointer">
+            Have an account?{" "}
+            <Link href="/login">
+              <span className="text-blue-800">Login Instead</span>
+            </Link>
+          </div>
           <p className="w-full my-2 text-slate-800 text-center flex items-center justify-between before:h-[1px] before:bg-black before:w-3/6 before:mr-1 after:h-[1px] after:bg-black after:w-3/6 after:ml-1">
             or
           </p>

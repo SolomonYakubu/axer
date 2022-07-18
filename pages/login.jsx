@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import { signIn, signOut } from "next-auth/react";
+
+import { signIn } from "next-auth/react";
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
-
-import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -87,6 +86,12 @@ export default function Login() {
               Login
             </button>
           </form>
+          <div className="text-sm font-lignt my-3 cursor-pointer">
+            Not registered?{" "}
+            <Link href="/signup">
+              <span className="text-blue-800">Sign Up Instead</span>
+            </Link>
+          </div>
           <p className="w-full my-2 text-slate-800 text-center flex items-center justify-between before:h-[1px] before:bg-black before:w-3/6 before:mr-1 after:h-[1px] after:bg-black after:w-3/6 after:ml-1">
             or
           </p>

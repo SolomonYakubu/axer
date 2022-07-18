@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 // import Header from "../components/Header.jsx";
-import lincut from "../public/axer.svg";
+import Axer from "../public/axer.svg";
 import { AiOutlineRise } from "react-icons/ai";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { BsController } from "react-icons/bs";
@@ -35,7 +35,7 @@ On a more practical side, a short URL is also easier to incorporate into your co
       description: `A custom URL shortener, sometimes referred to as a branded URL shortener, lets you brand your links. There are several benefits of branding your short links. Branded links build trust between your audience and your business, drive more clicks, give your audience a preview of where they are being taken and increase brand awareness.`,
     },
     {
-      title: "Why Choose Lincut",
+      title: "Why Choose Axer",
       description: `Whether you’re sharing one link or millions, our platform was built to help you make every point of connection between your content and your audience ignite action.
 
 That’s why the most recognized brands in the world love our platform.`,
@@ -112,7 +112,7 @@ That’s why the most recognized brands in the world love our platform.`,
             </div>
           </div>
 
-          <Image className=" md:w-6/12 z-0" src={lincut} alt="illustration" />
+          <Image className=" md:w-6/12 z-0" src={Axer} alt="illustration" />
         </div>
       </section>
       <section className="p-6  w-full bg-white" id="About">
