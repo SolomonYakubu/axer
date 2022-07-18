@@ -81,14 +81,14 @@ That’s why the most recognized brands in the world love our platform.`,
   });
 
   return (
-    <div className="overflow-hidden m-0 p-0 max-w-screen m-h-screen">
+    <div className="overflow-hidden m-0 p-0   mt-[8vh]">
       {/* <Header /> */}
       <section
-        className="px-6 py-14 md:mt-3 mb-0 w-full bg-slate-900  min-h-[93vh] "
+        className="px-6 mb-0 pb-0 w-full bg-slate-900   min-h-[92vh]"
         id="Home"
       >
-        <div className="md:flex md:items-center md:justify-between md:w-full  p-3">
-          <div className=" mt-10 md:w-6/12 ">
+        <div className="md:flex md:items-center md:justify-between md:w-full px-3 pt-8">
+          <div className="pt-5 md:pt-0 md:w-6/12 ">
             <h3 className="font-extrabold text-4xl md:text-7xl text-blue-400 animate-pulse">
               Axer
             </h3>

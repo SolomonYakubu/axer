@@ -46,6 +46,14 @@ export default function Signup() {
         console.log(err.message);
       });
   }
+  const handleGoogleSignin = (e) => {
+    e.preventDefault();
+    signIn("google", { callbackUrl: "/dashboard" });
+  };
+  const handleFacebookSignin = (e) => {
+    e.preventDefault();
+    signIn("facebook", { callbackUrl: "/dashboard" });
+  };
   return (
     <>
       {/* <Header /> */}
@@ -145,12 +153,18 @@ export default function Signup() {
           <p className="w-full my-2 text-slate-800 text-center flex items-center justify-between before:h-[1px] before:bg-black before:w-3/6 before:mr-1 after:h-[1px] after:bg-black after:w-3/6 after:ml-1">
             or
           </p>
-          <button className=" bg-red-700 flex w-full items-center justify-center p-2 text-white font-bold rounded">
+          <button
+            onClick={handleGoogleSignin}
+            className=" bg-red-700 flex w-full items-center justify-center p-2 text-white font-bold rounded"
+          >
             <BsGoogle />
             <span className="ml-2">Continue with Google</span>
           </button>
 
-          <button className=" bg-blue-700 mt-2 flex w-full items-center justify-center p-2 text-white font-bold rounded">
+          <button
+            onClick={handleFacebookSignin}
+            className=" bg-blue-700 mt-2 flex w-full items-center justify-center p-2 text-white font-bold rounded"
+          >
             <FaFacebookF />
             <span className="ml-2">Continue with Facebook</span>
           </button>
