@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
@@ -18,11 +18,20 @@ export default function Login() {
       email: e.target.email.value,
       password: e.target.password.value,
     });
-    console.log(status);
+
     if (status.ok) {
       setLoading(false);
-      router.push("/dashboard");
+      toast.success("Login Sucessful");
+      return setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
     }
+    setLoading(false);
+    toast.error("Invalid login details", {
+      position: "bottom-center",
+      duration: 1000,
+    });
+    return;
   };
   const handleGoogleSignin = (e) => {
     e.preventDefault();
@@ -37,54 +46,61 @@ export default function Login() {
       {/* <Header /> */}
       <div className="mt-[8vh] min-h-[92vh]  flex items-center justify-center py-4  px-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
-          <form onSubmit={onSubmit} disabled={loading}>
-            <h3 className="text-center font-bold text-xl text-slate-500">
-              Login
-            </h3>
-
-            <div className="mb-2">
-              <label
-                htmlFor="password"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Email
-              </label>
-              <input
-                type="Email"
-                placeholder="example@gmail.com"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                id="email"
-                name="email"
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="password"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Password
-              </label>
-              <input
-                type="Password"
-                placeholder="Your Password"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                id="password"
-                name="password"
-              />
-            </div>
-
-            <button
+          <form onSubmit={onSubmit}>
+            <fieldset
               disabled={loading}
-              className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+              className="disabled:pointer-events-none"
             >
-              {loading && (
-                <AiOutlineLoading
-                  size={30}
-                  className="animate-spin mr-2 absolute left-10  "
+              <h3 className="text-center font-bold text-xl text-slate-500">
+                Login
+              </h3>
+
+              <div className="mb-2">
+                <label
+                  htmlFor="password"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Email
+                </label>
+                <input
+                  type="Email"
+                  placeholder="example@gmail.com"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  id="email"
+                  name="email"
+                  required
                 />
-              )}{" "}
-              Login
-            </button>
+              </div>
+              <div className="mb-2">
+                <label
+                  htmlFor="password"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Password
+                </label>
+                <input
+                  type="Password"
+                  placeholder="Your Password"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+
+              <button
+                disabled={loading}
+                className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+              >
+                {loading && (
+                  <AiOutlineLoading
+                    size={30}
+                    className="animate-spin mr-2 absolute left-10  "
+                  />
+                )}{" "}
+                Login
+              </button>
+            </fieldset>
           </form>
           <div className="text-sm font-lignt my-3 cursor-pointer">
             Not registered?{" "}
@@ -110,6 +126,7 @@ export default function Login() {
             <span className="ml-2">Continue with Facebook</span>
           </button>
         </div>
+        <Toaster />
       </div>
     </>
   );

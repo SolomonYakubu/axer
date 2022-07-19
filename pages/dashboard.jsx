@@ -4,18 +4,24 @@ import { useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaRegCopy } from "react-icons/fa";
 import { getSession } from "next-auth/react";
+import { AiOutlineLoading } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 import connectMongo from "../utils/connectMongo";
 import empty from "../public/empty.svg";
 import Url from "../models/url";
 import Image from "next/image";
+
 export default function Component({ initData }) {
   const { data: session } = useSession();
   const [data, setData] = useState(initData);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   function submit(e) {
     e.preventDefault();
-
+    if (!e.target.url.value) {
+      return toast.error("Paste a link", { duration: 1500 });
+    }
+    setLoading(true);
     fetch("/api/url", {
       method: "POST",
       headers: {
@@ -30,10 +36,12 @@ export default function Component({ initData }) {
       .then((res) => res.json())
       .then((resData) => {
         setData([...data, resData]);
+        setLoading(false);
       })
       .catch((err) => {
-        console.log(err.message);
+        setLoading(false);
       });
+    setLoading(false);
   }
   if (session) {
     return (
@@ -47,7 +55,9 @@ export default function Component({ initData }) {
             </h3>
             <form
               onSubmit={submit}
-              className="w-full flex flex-col md:flex-row justify-center"
+              className={`w-full flex flex-col md:flex-row justify-center ${
+                loading && "pointer-events-none"
+              }`}
             >
               <input
                 type="text"
@@ -62,8 +72,17 @@ export default function Component({ initData }) {
                 className="p-3 bg-white my-3 md:my-0 rounded w-full md:w-2/5  md:rounded-none"
               />
 
-              <button className="bg-primary p-3 rounded  md:rounded-none md:rounded-r text-white w-full md:w-1/5 self-end md:self-center  ">
+              <button
+                disabled={loading}
+                className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-light mt-3 rounded disabled:opacity-50`}
+              >
                 Shorten
+                {loading && (
+                  <AiOutlineLoading
+                    size={30}
+                    className="animate-spin mr-2 absolute left-10  "
+                  />
+                )}{" "}
               </button>
             </form>
           </div>
@@ -117,6 +136,7 @@ export default function Component({ initData }) {
               <Image src={empty} alt="empty" className="w-full h-full" />
             </div>
           )}
+          <Toaster />
         </div>
       </>
     );

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -40,12 +40,17 @@ export default function Signup() {
       .then((res) => res.json())
       .then((data) => {
         if (data === "Registered") {
-          Router.push("/login");
+          toast.success("Registration Successful");
+
+          setTimeout(() => {
+            Router.push("/login");
+          }, 1500);
         }
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.message);
+        toast.error("User Already Exist", { position: "bottom-center" });
+        return;
       });
   }
   const handleGoogleSignin = (e) => {
@@ -65,92 +70,97 @@ export default function Signup() {
             Sign Up
           </h3>
           <form onSubmit={submit}>
-            <div className="mb-2">
-              <label
-                htmlFor="name"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="Full Name"
-                id="name"
-                name="name"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                required
-                minLength={3}
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="email"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Email
-              </label>
-              <input
-                type="Email"
-                placeholder="example@gmail.com"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                id="email"
-                name="email"
-                required
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="password"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Password
-              </label>
-              <input
-                type="Password"
-                placeholder="Your Password"
-                id="password"
-                name="password"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                required
-                // minLength={6}
-              />
-              <div
-                className=" bg-red-200 text-red-600 font-light text-sm mt-1"
-                ref={passwordAlert}
-              ></div>
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="confirmPassword"
-                className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
-              >
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="w-full p-2 rounded border-slate-200 border border-solid"
-                id="confirmPassword"
-                name="confirmPassword"
-                required
-              />
-              <div
-                className=" bg-red-200 text-red-600 font-light text-sm mt-1"
-                ref={confirmAlert}
-              ></div>
-            </div>
-            <button
+            <fieldset
               disabled={loading}
-              className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+              className="disabled:pointer-events-none"
             >
-              {loading && (
-                <AiOutlineLoading
-                  size={30}
-                  className="animate-spin mr-2 absolute left-10  "
+              <div className="mb-2">
+                <label
+                  htmlFor="name"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  id="name"
+                  name="name"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  required
+                  minLength={3}
                 />
-              )}{" "}
-              Sign Up
-            </button>
+              </div>
+              <div className="mb-2">
+                <label
+                  htmlFor="email"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Email
+                </label>
+                <input
+                  type="Email"
+                  placeholder="example@gmail.com"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label
+                  htmlFor="password"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Password
+                </label>
+                <input
+                  type="Password"
+                  placeholder="Your Password"
+                  id="password"
+                  name="password"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  required
+                  // minLength={6}
+                />
+                <div
+                  className=" bg-red-200 text-red-600 font-light text-sm mt-1"
+                  ref={passwordAlert}
+                ></div>
+              </div>
+              <div className="mb-2">
+                <label
+                  htmlFor="confirmPassword"
+                  className='text-light after:content-["*"] after:text-red-900 after:font-bold after:ml-[2px]'
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  className="w-full p-2 rounded border-slate-200 border border-solid"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  required
+                />
+                <div
+                  className=" bg-red-200 text-red-600 font-light text-sm mt-1"
+                  ref={confirmAlert}
+                ></div>
+              </div>
+              <button
+                disabled={loading}
+                className={`bg-primary flex w-full relative items-center justify-center p-2 text-white font-bold mt-3 rounded disabled:opacity-50`}
+              >
+                {loading && (
+                  <AiOutlineLoading
+                    size={30}
+                    className="animate-spin mr-2 absolute left-10  "
+                  />
+                )}{" "}
+                Sign Up
+              </button>
+            </fieldset>
           </form>
           <div className="text-sm font-lignt my-3 cursor-pointer">
             Have an account?{" "}
@@ -177,6 +187,7 @@ export default function Signup() {
             <span className="ml-2">Continue with Facebook</span>
           </button>
         </div>
+        <Toaster />
       </div>
     </>
   );
