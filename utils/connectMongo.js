@@ -5,7 +5,6 @@ const connectMongo = async () => {
   const db = mongoose.connection;
 
   if (db.readyState === 1) {
-    console.log("already connected");
     return;
   }
 

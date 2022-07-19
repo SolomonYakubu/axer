@@ -1,18 +1,16 @@
 import { useRouter } from "next/router";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Header from "../components/Header";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { FiLink } from "react-icons/fi";
-import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
+import { FaRegCopy } from "react-icons/fa";
 import { getSession } from "next-auth/react";
+import connectMongo from "../utils/connectMongo";
+import Url from "../models/url";
 export default function Component({ initData }) {
   const { data: session } = useSession();
   const [data, setData] = useState(initData);
   const router = useRouter();
-  console.log(data);
-  // useEffect(() => {
-  //   setData(initData);
-  // }, [initData]);
+
   function submit(e) {
     e.preventDefault();
 
@@ -122,14 +120,22 @@ export default function Component({ initData }) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
   const session = await getSession(context);
-  let data;
+
   if (session) {
-    const url =
-      (process.env.NODE_ENV == "production" &&
-        `https://axer.vercel.app/api/user/${session.user.email}`) ||
-      `http://${context.req.headers.host}/api/user/${session.user.email}`;
-    const res = await fetch(url);
-    const initData = await res.json();
+    await connectMongo();
+    const user = session.user.email;
+    await connectMongo();
+
+    const host = context.req.headers.host;
+
+    const url = await Url.find({ user });
+    const initData = url.map((item) => ({
+      fullUrl: item.fullUrl,
+      shortUrl: `${host}/${item.shortUrl}`,
+      clicks: item.clicks,
+    }));
+    // const initData = JSON.parse(JSON.stringify(await Url.find({ user })));
+
     return { props: { initData } };
   }
   // Pass data to the page via props
