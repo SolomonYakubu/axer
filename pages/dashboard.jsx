@@ -65,7 +65,7 @@ export default function Component({ initData }) {
               </button>
             </form>
           </div>
-          <div className=" flex flex-col-reverse p-6 justify-center items-center md:justify-center  md:flex-row-reverse md:flex-wrap-reverse min-h-screen">
+          <div className=" flex flex-col-reverse p-6 justify-end items-center md:justify-center  md:flex-row-reverse md:flex-wrap-reverse min-h-screen">
             {data?.map((item, index) => (
               <div
                 key={index}
