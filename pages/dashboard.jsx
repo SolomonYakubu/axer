@@ -5,7 +5,9 @@ import { FiLink } from "react-icons/fi";
 import { FaRegCopy } from "react-icons/fa";
 import { getSession } from "next-auth/react";
 import connectMongo from "../utils/connectMongo";
+import empty from "../public/empty.svg";
 import Url from "../models/url";
+import Image from "next/image";
 export default function Component({ initData }) {
   const { data: session } = useSession();
   const [data, setData] = useState(initData);
@@ -37,7 +39,7 @@ export default function Component({ initData }) {
     return (
       <>
         {/* <Header /> */}
-        <div className="md:min-h-[92vh] pb-2   mt-[8vh] bg-slate-700">
+        <div className="min-h-[92vh]   mt-[8vh] bg-slate-700">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
@@ -65,57 +67,60 @@ export default function Component({ initData }) {
               </button>
             </form>
           </div>
-          <div className=" flex flex-col-reverse p-6 justify-end items-center md:justify-center  md:flex-row-reverse md:flex-wrap-reverse min-h-screen">
-            {data?.map((item, index) => (
-              <div
-                key={index}
-                className="p-4  flex flex-col justify-center items-center  shadow-lg rounded m-3 h-72 w-full md:w-1/4 break-all bg-slate-800 "
-              >
-                <FiLink size={40} className="text-center text-white" />
-                <div className=" text-white text-md self-start">
-                  Full Link:{" "}
-                  <a
-                    className="text-sm font-light text-blue-400"
-                    href={`//${item.fullUrl}`}
-                  >
-                    {item.fullUrl}
-                  </a>
-                </div>
-                <div className=" text-white text-md self-start">
-                  Shortened Link:{" "}
-                  <a
-                    className="text-sm font-light text-blue-400"
-                    href={`//${item.shortUrl}`}
-                  >
-                    {item.shortUrl}
-                  </a>
-                </div>
-                <div className="font-bold self-end flex items-center text-lg text-white">
-                  Clicks:{" "}
-                  <span className="text-3xl ml-1 text text-white">
-                    {item.clicks}
-                  </span>
-                </div>
-                <button
-                  onClick={() => navigator.clipboard.writeText(item.shortUrl)}
-                  className="flex self-end font-thin bg-white p-2 text-stone-800 rounded m-1"
+          {(data[0] && (
+            <div className=" flex flex-col-reverse p-6 justify-end items-center md:justify-center  md:flex-row-reverse md:flex-wrap-reverse">
+              {data?.map((item, index) => (
+                <div
+                  key={index}
+                  className="p-4  flex flex-col justify-center items-center  shadow-lg rounded m-3 h-72 w-full md:w-1/4 break-all bg-slate-800 "
                 >
-                  Copy Link
-                  <FaRegCopy className="m-1" />
-                </button>
-              </div>
-            ))}
-          </div>
+                  <FiLink size={40} className="text-center text-white" />
+                  <div className=" text-white text-md self-start">
+                    Full Link:{" "}
+                    <a
+                      className="text-sm font-light text-blue-400"
+                      href={`//${item.fullUrl}`}
+                    >
+                      {item.fullUrl}
+                    </a>
+                  </div>
+                  <div className=" text-white text-md self-start">
+                    Shortened Link:{" "}
+                    <a
+                      className="text-sm font-light text-blue-400"
+                      href={`//${item.shortUrl}`}
+                    >
+                      {item.shortUrl}
+                    </a>
+                  </div>
+                  <div className="font-bold self-end flex items-center text-lg text-white">
+                    Clicks:{" "}
+                    <span className="text-3xl ml-1 text text-white">
+                      {item.clicks}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(item.shortUrl)}
+                    className="flex self-end font-thin bg-white p-2 text-stone-800 rounded m-1"
+                  >
+                    Copy Link
+                    <FaRegCopy className="m-1" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )) || (
+            <div className=" flex flex-col justify-center items-center">
+              <h3 className="text-xl m-2 text-white font-thin text-center">
+                {"You don't seem to have any links yet"}{" "}
+              </h3>
+              <Image src={empty} alt="empty" className="w-full h-full" />
+            </div>
+          )}
         </div>
       </>
     );
   }
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button>
-  //   </>
-  // );
 }
 export async function getServerSideProps(context) {
   // Fetch data from external API
