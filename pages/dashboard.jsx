@@ -42,7 +42,6 @@ export default function Component({ initData }) {
       .catch((err) => {
         setLoading(false);
       });
-    setLoading(false);
   }
   if (session) {
     return (
