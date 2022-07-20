@@ -7,7 +7,7 @@ export default function NotFound() {
   const router = useRouter();
   return (
     <Layout>
-      <div className="bg-slate-900 relative flex items-center flex-col justify-start h-full pt-8">
+      <div className="bg-slate-900 relative flex items-center flex-col justify-start min-h-full pt-8">
         <Image
           src={notFound}
           alt="not found"

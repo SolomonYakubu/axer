@@ -64,7 +64,7 @@ export default function Signup() {
   return (
     <Layout>
       {/* <Header /> */}
-      <div className="flex items-center h-full justify-center py-4 md:py-16 px-6 bg-slate-900">
+      <div className="flex items-center min-h-full justify-center py-4 md:py-16 px-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">
             Sign Up
