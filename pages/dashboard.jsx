@@ -73,15 +73,15 @@ export default function Component({ initData }) {
 
               <button
                 disabled={loading}
-                className={`bg-primary md:w-1/4 flex w-full h-full relative items-center justify-center p-3 text-white font-light my-3 md:my-0 md:rounded-none md:rounded-r outline-none rounded disabled:opacity-50`}
+                className={`bg-primary md:w-1/4 flex w-full  relative items-center justify-center p-3 text-white font-light my-3 md:my-0 md:rounded-none md:rounded-r outline-none rounded disabled:opacity-50`}
               >
-                Shorten
                 {loading && (
                   <AiOutlineLoading
                     size={30}
                     className="animate-spin mr-2 absolute left-10  "
                   />
                 )}{" "}
+                Shorten
               </button>
             </form>
           </div>
