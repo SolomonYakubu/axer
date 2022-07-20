@@ -4,7 +4,7 @@ import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
 import { signIn } from "next-auth/react";
-
+import Layout from "../components/Layout";
 import Router from "next/router";
 import Link from "next/link";
 
@@ -62,9 +62,9 @@ export default function Signup() {
     signIn("facebook", { callbackUrl: "/dashboard" });
   };
   return (
-    <>
+    <Layout>
       {/* <Header /> */}
-      <div className=" mt-[8vh] min-h-[92vh]  flex items-center justify-center py-4 md:py-16 px-6 bg-slate-900">
+      <div className="flex items-center h-full justify-center py-4 md:py-16 px-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <h3 className="text-center font-bold text-xl text-slate-500">
             Sign Up
@@ -189,6 +189,6 @@ export default function Signup() {
         </div>
         <Toaster />
       </div>
-    </>
+    </Layout>
   );
 }

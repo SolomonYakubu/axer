@@ -5,6 +5,7 @@ import { FiLink } from "react-icons/fi";
 import { FaRegCopy } from "react-icons/fa";
 import { getSession } from "next-auth/react";
 import { AiOutlineLoading } from "react-icons/ai";
+import Layout from "../components/Layout";
 import toast, { Toaster } from "react-hot-toast";
 import connectMongo from "../utils/connectMongo";
 import empty from "../public/empty.svg";
@@ -45,9 +46,8 @@ export default function Component({ initData }) {
   }
   if (session) {
     return (
-      <>
-        {/* <Header /> */}
-        <div className="min-h-[92vh]   mt-[8vh] bg-slate-700">
+      <Layout>
+        <div className=" bg-slate-700">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
@@ -138,7 +138,7 @@ export default function Component({ initData }) {
           )}
           <Toaster />
         </div>
-      </>
+      </Layout>
     );
   }
 }

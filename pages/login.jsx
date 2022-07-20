@@ -5,6 +5,7 @@ import { BsGoogle } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
 import Link from "next/link";
+import Layout from "../components/Layout";
 import { useRouter } from "next/router";
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -42,9 +43,9 @@ export default function Login() {
     signIn("facebook", { callbackUrl: "/dashboard" });
   };
   return (
-    <>
+    <Layout>
       {/* <Header /> */}
-      <div className="mt-[8vh] min-h-[92vh]  flex items-center justify-center py-4  px-6 bg-slate-900">
+      <div className="flex items-center h-full justify-center py-4  px-6 bg-slate-900">
         <div className="shadow-lg py-8 p-6 md:w-2/5 w-full bg-white rounded-md">
           <form onSubmit={onSubmit}>
             <fieldset
@@ -128,6 +129,6 @@ export default function Login() {
         </div>
         <Toaster />
       </div>
-    </>
+    </Layout>
   );
 }

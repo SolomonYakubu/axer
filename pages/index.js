@@ -8,6 +8,7 @@ import { AiOutlineRise } from "react-icons/ai";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { BsController } from "react-icons/bs";
 import Accordion from "../components/Accordion";
+import Layout from "../components/Layout";
 export default function Home() {
   const router = useRouter();
   const list = [
@@ -81,10 +82,10 @@ That’s why the most recognized brands in the world love our platform.`,
   });
 
   return (
-    <div className="overflow-hidden m-0 p-0   mt-[8vh]">
+    <Layout>
       {/* <Header /> */}
       <section
-        className="px-6 mb-0 pb-0 w-full bg-slate-900   min-h-[92vh]"
+        className="min-h-[calc(100vh-64px)] px-6 mb-0 pb-0 w-full bg-slate-900"
         id="Home"
       >
         <div className="md:flex md:items-center md:justify-between md:w-full px-3 pt-8">
@@ -184,6 +185,6 @@ That’s why the most recognized brands in the world love our platform.`,
           </p>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }
