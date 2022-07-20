@@ -46,7 +46,7 @@ export default function Component({ initData }) {
   if (session) {
     return (
       <Layout>
-        <div className=" bg-slate-700 ">
+        <div className="min-h-full bg-slate-700 ">
           <div className="w-full  p-6 py-8 bg-slate-900">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
