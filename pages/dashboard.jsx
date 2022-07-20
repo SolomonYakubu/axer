@@ -121,9 +121,13 @@ export default function Component({ initData }) {
                       </span>
                     </div>
                     <button
-                      onClick={() =>
-                        navigator.clipboard.writeText(item.shortUrl)
-                      }
+                      onClick={() => {
+                        navigator.clipboard.writeText(item.shortUrl);
+                        toast.success("Link copied to clipboard", {
+                          icon: "🎉🎉",
+                          position: "bottom-center",
+                        });
+                      }}
                       className="flex self-end font-thin bg-white p-2 text-stone-800 rounded m-1"
                     >
                       Copy Link
