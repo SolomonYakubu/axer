@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaRegCopy } from "react-icons/fa";
-import { getSession } from "next-auth/react";
+
 import { AiOutlineLoading } from "react-icons/ai";
 import Layout from "../components/Layout";
 import toast, { Toaster } from "react-hot-toast";
@@ -152,7 +154,11 @@ export default function Component({ initData }) {
 }
 export async function getServerSideProps(context) {
   // Fetch data from external API
-  const session = await getSession(context);
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
 
   if (session) {
     await connectMongo();

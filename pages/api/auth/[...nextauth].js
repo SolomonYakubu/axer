@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+
 import credentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -7,7 +8,7 @@ import connectMongo from "../../../utils/connectMongo";
 import { compare } from "bcrypt";
 import { redirect } from "next/dist/server/api-utils";
 
-export default NextAuth({
+export const authOptions = {
   //Configure JWT
   session: {
     jwt: true,
@@ -53,35 +54,13 @@ export default NextAuth({
     }),
   ],
   database: process.env.MONGO_URI,
-  //   callbacks: {
-  //     session: async (session, user) => {
-  //       session.id = user.id;
-  //       return Promise.resolve(session);
-  //     },
-  //   },
-  //   jwt: {
-  //     encryption: true,
-  //   },
-  secret: process.env.JWT_SECRET,
-  //   callbacks: {
-  //     async jwt(token, account) {
-  //       if (account?.accessToken) {
-  //         token.accessToken = account.accessToken;
-  //       }
-  //       return token;
-  //     },
-  // redirect: async (url, _baseUrl) => {
-  //   if (url === "/dashboard") {
-  //     return Promise.resolve("/login");
-  //   }
-  //   return Promise.resolve("/login");
-  // },
 
-  //   },
+  jwt: {
+    encryption: true,
+  },
+  secret: process.env.JWT_SECRET,
+
   events: {
-    signOut: async (message) => {
-      redirect: async () => Promise.resolve("/login");
-    },
     signIn: async (message) => {
       //   const session = await getSession();
       if (
@@ -105,4 +84,6 @@ export default NextAuth({
       }
     },
   },
-});
+};
+
+export default NextAuth(authOptions);

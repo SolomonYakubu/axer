@@ -1,4 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { unstable_getServerSession } from "next-auth/next";
+import { getToken } from "next-auth/jwt";
 import connectMongo from "../../utils/connectMongo";
 import User from "../../models/user";
 import Url from "../../models/url";
@@ -20,12 +21,5 @@ export default async function handler(req, res) {
       }
 
       break;
-    case "GET":
-      try {
-        await connectMongo();
-        const { user } = req.body;
-        const url = await Url.find(user);
-        res.json(url);
-      } catch (err) {}
   }
 }
