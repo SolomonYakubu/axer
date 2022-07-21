@@ -7,6 +7,8 @@ import { AiOutlineLoading } from "react-icons/ai";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 export default function Login() {
   const [loading, setLoading] = useState(false);
 
@@ -131,4 +133,21 @@ export default function Login() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
 }

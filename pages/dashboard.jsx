@@ -5,7 +5,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { useState } from "react";
 import { FiLink } from "react-icons/fi";
 import { FaRegCopy } from "react-icons/fa";
-
+import { TbArrowBigDownLines } from "react-icons/tb";
 import { AiOutlineLoading } from "react-icons/ai";
 import Layout from "../components/Layout";
 import toast, { Toaster } from "react-hot-toast";
@@ -48,8 +48,8 @@ export default function Component({ initData }) {
   if (session) {
     return (
       <Layout>
-        <div className="min-h-full bg-slate-700 ">
-          <div className="w-full  p-6 py-8 bg-slate-900">
+        <div className="min-h-full bg-slate-800 ">
+          <div className="w-full  p-6 py-8 bg-slate-900 shadow-xl">
             <h3 className="text-white text-xl md:text-2xl py-3 text-center font-thin">
               Paste a long URL followed by a custom phrase (optional) and click
               shorten
@@ -95,10 +95,10 @@ export default function Component({ initData }) {
                 .map((item, index) => (
                   <div
                     key={index}
-                    className="p-4  flex flex-col justify-center items-center  shadow-lg rounded m-3 h-72 w-full md:w-1/4 break-all bg-slate-800 "
+                    className="p-4  flex flex-col justify-center items-center  shadow-xl rounded m-3 h-72 w-full md:w-1/4 break-all bg-slate-900 "
                   >
-                    <FiLink size={40} className="text-center text-white" />
-                    <div className=" text-white text-md self-start">
+                    <FiLink size={30} className="text-center text-white " />
+                    <div className=" text-white font-thin text-lg self-start">
                       Full Link:{" "}
                       <a
                         className="text-sm font-light text-blue-400"
@@ -107,7 +107,8 @@ export default function Component({ initData }) {
                         {item.fullUrl}
                       </a>
                     </div>
-                    <div className=" text-white text-md self-start">
+                    {/* <TbArrowBigDownLines size={50} className="text-white" /> */}
+                    <div className=" text-white font-thin text-lg self-start">
                       Shortened Link:{" "}
                       <a
                         className="text-sm font-light text-blue-400"
@@ -116,7 +117,8 @@ export default function Component({ initData }) {
                         {item.shortUrl}
                       </a>
                     </div>
-                    <div className="font-bold self-end flex items-center text-lg text-white">
+
+                    <div className="font-thin self-end flex items-center text-lg text-white">
                       Clicks:{" "}
                       <span className="text-3xl ml-1 text text-white">
                         {item.clicks}

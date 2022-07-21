@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import Head from "next/head";
+
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-// import Header from "../components/Header.jsx";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import Axer from "../public/axer.svg";
 import { AiOutlineRise } from "react-icons/ai";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
@@ -187,4 +187,20 @@ That’s why the most recognized brands in the world love our platform.`,
       </section>
     </Layout>
   );
+}
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
 }
